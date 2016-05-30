@@ -5,7 +5,12 @@ from sys import modules
 
 
 def build_a_sentence():
-    return a_netflix_category() + " with " + a_character() + " Who " + an_action()
+    pick = random.choice(["character", "place"])
+    if pick is "character":
+        ending = " with " + a_character() + " Who " + an_action()
+    elif pick is "place":
+        ending = " set in " + a_place()
+    return a_netflix_category() + ending
 
 
 def a_netflix_category():
@@ -69,6 +74,15 @@ def a_noun():
 
 def a_resume_action_word():
     return random.choice(pycorpora.words["resume_action_words"]["resume_action_words"]).title()
+
+
+def a_place():
+    pick = random.choice(["a_room"])
+    return getattr(_this_module(), pick)()
+
+
+def a_room():
+    return a_or_an(random.choice(pycorpora.architecture['rooms']['rooms']).title())
 
 
 def a_or_an(word):
