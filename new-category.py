@@ -38,7 +38,6 @@ def an_animal():
     return a_or_an(random.choice(pycorpora.animals["common"]["animals"]).title())
 
 
-
 def an_action():
     pick = random.choice(["eat", "resume"])
     if pick is "eat":
@@ -82,6 +81,7 @@ def a_or_an(word):
 
 
 def _this_module():
+    # Using sys.modules to dynamically get this modules name so we can call functions using getattr
     return modules[__name__]
 
 
