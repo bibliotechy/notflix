@@ -1,8 +1,16 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import pycorpora
 import random
 import json
+import tweepy
+import config
 from sys import modules
 
+auth = tweepy.OAuthHandler(config.CONSUMER_KEY, config.CONSUMER_SECRET)
+auth.set_access_token(config.ACCESS_KEY, config.ACCESS_SECRET)
+api = tweepy.API(auth)
 
 def build_a_sentence():
     pick = random.choice(["character", "place", "corporation"])
@@ -151,3 +159,6 @@ def _this_module():
 
 if __name__ == '__main__':
     print build_a_sentence()
+    tweet_text = build_a_sentence()
+    api.update_status(tweet_text)
+

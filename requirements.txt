@@ -1,2 +1,2 @@
 pycorpora==0.1.2
-
+tweepy>=3.5.0
