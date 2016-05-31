@@ -11,7 +11,7 @@ def build_a_sentence():
     elif pick is "place":
         ending = " set in " + a_place()
     elif pick is "corporation":
-        ending = " with product placement for " + a_corporation() + " on " + an_object()
+        ending = " with Product Placement for " + a_corporation() + " on " + an_object()
     return a_netflix_category() + ending
 
 
@@ -102,7 +102,8 @@ def a_country():
 
 
 def a_us_city():
-    return random.choice(pycorpora.geography["us_cities"]["cities"])["city"].title()
+    city = random.choice(pycorpora.geography["us_cities"]["cities"])
+    return ", ".join([city["city"], city["state"]]).title()
 
 
 def a_color():
