@@ -16,7 +16,7 @@ def build_a_sentence():
 
 
 def a_netflix_category():
-    return random.choice(netflix_categories()['categories'])['name']
+    return random.choice(netflix_categories()['categories'])
 
 
 def netflix_categories():
