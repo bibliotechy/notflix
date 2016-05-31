@@ -5,11 +5,13 @@ from sys import modules
 
 
 def build_a_sentence():
-    pick = random.choice(["character", "place"])
+    pick = random.choice(["character", "place", "corporation"])
     if pick is "character":
         ending = " with " + a_character() + " Who " + an_action()
     elif pick is "place":
         ending = " set in " + a_place()
+    elif pick is "corporation":
+        ending = " with product placement for " + a_corporation() + " on " + an_object()
     return a_netflix_category() + ending
 
 
@@ -44,32 +46,38 @@ def an_animal():
 
 
 def an_action():
-    pick = random.choice(["eat", "resume"])
+    pick = random.choice(["eat", "resume", "color"])
     if pick is "eat":
         action = "Eats " + a_food()
     elif pick is "resume":
-        action = a_resume_action_word() + " " + a_noun()
+        action = a_resume_action_word() + " " + an_object()
+    elif pick is "color":
+        action = a_color_interaction() + a_color()
     else:
         action = ""
     return action
 
 
 def a_food():
-    pick = random.choice(["a_bread_or_pastry", "an_apple_type"])
+    pick = random.choice(["a_bread_or_pastry", "a_condiment", "a_menu_item"])
     return getattr(_this_module(), pick)()
 
 
 def a_bread_or_pastry():
-    borp = random.choice(["breads", "pastries"])
-    return a_or_an(random.choice(pycorpora.foods["breads_and_pastries"][borp]).title())
+    pick = random.choice(["breads", "pastries"])
+    return random.choice(pycorpora.foods["breads_and_pastries"][pick]).title()
 
 
-def an_apple_type():
-    return a_or_an(random.choice(pycorpora.foods['apple_cultivars']['cultivars']).title())
+def a_condiment():
+    return random.choice(pycorpora.foods['condiments']['condiments']).title()
 
 
-def a_noun():
-    return a_or_an(random.choice(pycorpora.words['nouns']['nouns']).title())
+def a_menu_item():
+    return random.choice(pycorpora.foods['menuItems']['menuItems']).title()
+
+
+def an_object():
+    return a_or_an(random.choice(pycorpora.objects['objects']['objects']).title())
 
 
 def a_resume_action_word():
@@ -77,12 +85,53 @@ def a_resume_action_word():
 
 
 def a_place():
-    pick = random.choice(["a_room"])
+    pick = random.choice(["a_room", "a_venue", "a_country", "a_us_city"])
     return getattr(_this_module(), pick)()
+
+
+def a_venue():
+    return a_or_an(random.choice(random.choice(pycorpora.geography["venues"]["categories"])["categories"])["name"].title())
 
 
 def a_room():
     return a_or_an(random.choice(pycorpora.architecture['rooms']['rooms']).title())
+
+
+def a_country():
+    return random.choice(pycorpora.geography["countries"]["countries"]).title()
+
+
+def a_us_city():
+    return random.choice(pycorpora.geography["us_cities"]["cities"])["city"].title()
+
+
+def a_color():
+    return random.choice(pycorpora.colors["crayola"]["colors"])["color"].title()
+
+
+def a_color_interaction():
+    return random.choice(["only wears ", "is bathed in ", "is weakened by ", "hates "]).title()
+
+
+def a_corporation():
+    pick = random.choice(["a_djia", "a_fortune500", "a_nasdaq", "a_newspaper"])
+    return getattr(_this_module(), pick)()
+
+
+def a_djia():
+    return random.choice(pycorpora.corporations["djia"]["corporations"])["name"].title()
+
+
+def a_fortune500():
+    return random.choice(pycorpora.corporations["fortune500"]["companies"]).title()
+
+
+def a_nasdaq():
+    return random.choice(pycorpora.corporations["nasdaq"]["corporations"])["name"].title()
+
+
+def a_newspaper():
+    return random.choice(pycorpora.corporations["newspapers"]["newspapers"]).title()
 
 
 def a_or_an(word):
